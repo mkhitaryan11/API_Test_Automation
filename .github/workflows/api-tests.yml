@@ -52,11 +52,11 @@ jobs:
       - name: 🧪 Run API Tests
         run: mvn test
         continue-on-error: true  # Continue even if tests fail to generate reports
-        env:
-          # Add any environment variables your tests need here
-          # API_BASE_URL: ${{ secrets.API_BASE_URL }}
-          # API_USERNAME: ${{ secrets.API_USERNAME }}
-          # API_PASSWORD: ${{ secrets.API_PASSWORD }}
+        # Add environment variables here if needed:
+        # env:
+        #   API_BASE_URL: ${{ secrets.API_BASE_URL }}
+        #   API_USERNAME: ${{ secrets.API_USERNAME }}
+        #   API_PASSWORD: ${{ secrets.API_PASSWORD }}
 
       - name: 📊 Generate Allure Report
         if: always()  # Generate report even if tests fail

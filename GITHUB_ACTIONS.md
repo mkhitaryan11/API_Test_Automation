@@ -74,13 +74,14 @@ If you need to configure API URL or credentials:
 1. Go to: **Settings** → **Secrets and variables** → **Actions**
 2. Click **New repository secret**
 3. Add your secrets (e.g., `API_BASE_URL`, `API_USERNAME`)
-4. Update `.github/workflows/api-tests.yml` to use them:
+4. Update `.github/workflows/api-tests.yml` - uncomment the env section (around line 56):
 
 ```yaml
 - name: 🧪 Run API Tests
   run: mvn test
   env:
     API_BASE_URL: ${{ secrets.API_BASE_URL }}
+    API_USERNAME: ${{ secrets.API_USERNAME }}
 ```
 
 ## Troubleshooting
