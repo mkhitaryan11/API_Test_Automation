@@ -1,0 +1,110 @@
+name: API Test Automation
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+
+env:
+  JAVA_VERSION: '11'
+  MAVEN_OPTS: -Xmx1024m
+
+jobs:
+  api-tests:
+    name: Run API Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better reporting
+
+      - name: ☕ Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: 📦 Cache Maven Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: 🔍 Verify Maven Installation
+        run: mvn --version
+
+      - name: 🧹 Clean Previous Builds
+        run: mvn clean
+
+      - name: 🧪 Run API Tests
+        run: mvn test
+        continue-on-error: true  # Continue even if tests fail to generate reports
+        env:
+          # Add any environment variables your tests need here
+          # API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          # API_USERNAME: ${{ secrets.API_USERNAME }}
+          # API_PASSWORD: ${{ secrets.API_PASSWORD }}
+
+      - name: 📊 Generate Allure Report
+        if: always()  # Generate report even if tests fail
+        run: mvn allure:report
+
+      - name: 📦 Archive Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            target/surefire-reports/
+            target/allure-results/
+          retention-days: 30
+
+      - name: 📦 Archive Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/site/allure-maven-plugin/
+          retention-days: 30
+
+      - name: 📦 Archive Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs
+          path: target/logs/
+          retention-days: 30
+
+      - name: 📝 Publish Test Summary
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: TestNG Results
+          path: target/surefire-reports/TEST-*.xml
+          reporter: java-junit
+          fail-on-error: false
+
+      - name: ✅ Test Execution Status
+        if: steps.test.outcome == 'success'
+        run: echo "✅ All tests passed successfully!"
+
+      - name: ❌ Test Execution Status
+        if: steps.test.outcome == 'failure'
+        run: |
+          echo "❌ Some tests failed!"
+          echo "📊 Check the Allure report artifact for detailed results"
+          exit 1
+

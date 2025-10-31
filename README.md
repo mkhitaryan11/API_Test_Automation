@@ -1,6 +1,10 @@
- allure:serve# API Test Automation Framework
+# API Test Automation Framework
+
+![API Tests](https://github.com/mkhitaryan11/API_Test_Automation/actions/workflows/api-tests.yml/badge.svg)
 
 A professional, production-ready API test automation framework built with Java, TestNG, RestAssured, Jackson, Log4j2, and Allure reporting. Designed for testing the Traveler API with comprehensive test coverage, authentication management, and detailed reporting.
+
+> **🚀 NEW: GitHub Actions CI/CD Support!** - See [GITHUB_ACTIONS.md](GITHUB_ACTIONS.md) for running tests automatically on GitHub.
 
 ## ✨ Key Features
 
@@ -109,9 +113,13 @@ mvn clean compile
 
 ### Running Tests
 
-The framework provides two ways to run tests:
+The framework provides three ways to run tests:
 
-#### Option 1: Quick Test Runs (No History)
+#### Option 1: GitHub Actions CI/CD (Recommended for Teams)
+
+Run tests automatically on every push or pull request. See [GITHUB_ACTIONS.md](GITHUB_ACTIONS.md) for setup.
+
+#### Option 2: Quick Test Runs (No History)
 
 Use this for development and quick testing:
 
@@ -146,7 +154,7 @@ mvn allure:report
 mvn allure:serve
 ```
 
-#### Option 2: Tests with History Tracking
+#### Option 3: Tests with History Tracking
 
 Use this to track test trends over time:
 
