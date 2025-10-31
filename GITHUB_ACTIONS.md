@@ -89,6 +89,7 @@ If you need to configure API URL or credentials:
 ### Tests fail on GitHub but pass locally?
 - Check if API endpoint is accessible from GitHub servers
 - Add any required credentials as GitHub Secrets
+- Review the test-logs artifact for detailed error messages
 
 ### Workflow not triggering?
 - Make sure you pushed to `main`, `master`, or `develop` branch
@@ -97,6 +98,11 @@ If you need to configure API URL or credentials:
 ### Can't download artifacts?
 - Wait for the workflow to complete
 - Artifacts are only available for 30 days
+- Some artifacts may be empty if those steps didn't produce output
+
+### "No files were found" warning?
+- This is normal if certain directories don't exist (e.g., no logs generated)
+- The workflow will continue and won't fail because of this
 
 ## Workflow File
 
