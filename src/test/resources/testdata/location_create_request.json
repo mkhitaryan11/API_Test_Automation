@@ -1,0 +1,9 @@
+{
+  "name": "Test Location",
+  "text": "A test location within the hotel",
+  "lat": 40.7128,
+  "lon": -74.0060,
+  "pre_moderated": true,
+  "is_active": true,
+  "location_type": "public"
+}

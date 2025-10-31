@@ -1,0 +1,20 @@
+{
+  "hotel_id": "aa44adf8-9913-47d4-8f07-a9259d01ff55",
+  "hotel_location_id": "c069a643-93a6-4053-8931-2e3e1d39e11c",
+  "mode": "open",
+  "activity_type_code": "test_activity",
+  "name": "Test Event",
+  "description_short": "A short description of the test event",
+  "description_long": "A detailed description of the test event with more information",
+  "start_at": "2025-08-17T15:00:00Z",
+  "duration_min": 120,
+  "max_attendees": 20,
+  "age_restricted": false,
+  "cover_image_url": "https://example.com/test-image.jpg",
+  "comments_enabled": true,
+  "languages": ["en", "es"],
+  "price": 0,
+  "currency_code": "USD",
+  "current_attendees": 0,
+  "attendance_required": true
+}

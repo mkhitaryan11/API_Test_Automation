@@ -1,0 +1,12 @@
+{
+  "name": "Test Hotel",
+  "description": "A test hotel for API testing",
+  "contacts_json": "{\"phone\": \"+1234567890\", \"email\": \"test@hotel.com\"}",
+  "address_text": "123 Test Street, Test City, TC 12345",
+  "lat": 40.7128,
+  "lon": -74.0060,
+  "is_active": true,
+  "pre_moderated": true,
+  "hotel_type": "open",
+  "event_policy": "free"
+}
